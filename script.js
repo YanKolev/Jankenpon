@@ -44,6 +44,42 @@ let computerSelection = getComputerChoice();*/
 //let computerMove = ''; (Using return value is better as we use scope) declaring a Global Variable, so it can be used in all functions.
 //Return = gets a value out of a function
 //Parameter of a function = puts a value into a function- works same way as a variable- it can store value
+// ------------------------------------------------------
+// that is not a good practice
+
+// document.getElementById('Rock').onclick = function () {
+//     playGame('Rock');
+// }
+
+// document.getElementById('Paper').onclick = function() {
+//     playGame('Paper');
+// }
+
+// document.getElementById('Scissors').onclick = function() {
+//        playGame('Scissors');
+//     }
+
+
+const buttonRock = document.getElementById('Rock');
+const buttonPaper = document.getElementById('Paper')
+const buttonScissors = document.getElementById('Scissors')
+
+let gamesCounter = 0
+let playerWinCount = 0
+let computerWinCount = 0
+
+buttonRock.addEventListener('click', () => {
+    playGame('Rock')
+    gamesCounter++
+})
+buttonPaper.addEventListener('click', () => {
+    playGame('Paper')
+    gamesCounter++
+})
+buttonScissors.addEventListener('click', () => {
+    playGame('Scissors')
+    gamesCounter++
+})
 
 function pickComputerMove(){
         const randomNumber = Math.random();
@@ -98,22 +134,25 @@ function playGame(playerMove){
             }
         }
         //Reusing the function to call inside a functions.
-
-
-
         alert(`You picked ${playerMove}. Computer picked ${computerMove}.${result}`);
-
-}
-
-document.getElementById('Rock').onclick = function() {
-    playGame('Rock');
-}
-
-document.getElementById('Paper').onclick = function() {
-    playGame('Paper');
-}
-
-document.getElementById('Scissors').onclick = function() {
-       playGame('Scissors');
+        checkGame(result)
     }
-    
+
+function checkGame(result) {
+    console.log(computerWinCount, playerWinCount)
+    if (result === 'You lose.'){
+        computerWinCount++
+        
+    } else if (result === 'You win.') {
+        playerWinCount++
+    }
+    if (computerWinCount === 5) {
+        alert('The Computer Won the game!')
+        playerWinCount = 0
+        computerWinCount = 0
+    } else if(playerWinCount === 5) {
+        alert('You won')
+        playerWinCount = 0
+        computerWinCount = 0
+    }
+}
